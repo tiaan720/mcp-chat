@@ -243,6 +243,12 @@ You can use any MCP-compatible server with this application. Here are some examp
 - [Hugging Face MCP](https://huggingface.co/mcp) - Provides tool access to Hugging Face Hub
 - Any MCP server compatible with HTTP or SSE transport
 
+## Deploying new changes to vercel:
+
+```bash
+vercel --prod
+```
+
 ## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
