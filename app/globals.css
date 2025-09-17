@@ -385,4 +385,9 @@
     /* Use Firefox-specific scrollbar hiding when supported */
     scrollbar-width: none;
   }
+
+  /* Force white text in tooltips for slate theme */
+  .slate [data-slot="tooltip-content"] {
+    color: white !important;
+  }
 }
