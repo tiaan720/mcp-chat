@@ -14,6 +14,10 @@ import {
   Pencil,
   Github,
   Key,
+  Flame,
+  Sun,
+  CircleDashed,
+  Zap,
 } from "lucide-react";
 import {
   Sidebar,
@@ -37,6 +41,7 @@ import Image from "next/image";
 import { MCPServerManager } from "./mcp-server-manager";
 import { ApiKeyManager } from "./api-key-manager";
 import { ThemeToggle } from "./theme-toggle";
+import { useTheme } from "next-themes";
 import { getUserId, updateUserId } from "@/lib/user-id";
 import { useChats } from "@/lib/hooks/use-chats";
 import { cn } from "@/lib/utils";
@@ -49,6 +54,9 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
@@ -75,6 +83,7 @@ export function ChatSidebar() {
   const isCollapsed = state === "collapsed";
   const [editUserIdOpen, setEditUserIdOpen] = useState(false);
   const [newUserId, setNewUserId] = useState("");
+  const { setTheme } = useTheme();
 
   // Get MCP server data from context
   const {
@@ -492,15 +501,34 @@ export function ChatSidebar() {
                   <Github className="mr-2 h-4 w-4 hover:text-sidebar-accent" />
                   GitHub
                 </DropdownMenuItem>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                  <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center">
-                      <Sparkles className="mr-2 h-4 w-4 hover:text-sidebar-accent" />
-                      Theme
-                    </div>
-                    <ThemeToggle className="h-6 w-6" />
-                  </div>
-                </DropdownMenuItem>
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger>
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    <span>Theme</span>
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuSubContent>
+                    <DropdownMenuItem onSelect={() => setTheme("light")}>
+                      <Sun className="mr-2 h-4 w-4" />
+                      <span>Light</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => setTheme("dark")}>
+                      <Flame className="mr-2 h-4 w-4" />
+                      <span>Dark</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => setTheme("sunset")}>
+                      <Sun className="mr-2 h-4 w-4" />
+                      <span>Sunset</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => setTheme("black")}>
+                      <CircleDashed className="mr-2 h-4 w-4" />
+                      <span>Black</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => setTheme("tron")}>
+                      <Zap className="mr-2 h-4 w-4" />
+                      <span>Tron</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuSub>
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>

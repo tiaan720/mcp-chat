@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { CircleDashed, Flame, Sun } from "lucide-react";
+import { CircleDashed, Flame, Sun, Zap } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
 import {
@@ -27,9 +27,10 @@ export function ThemeToggle({
           className={cn(`rounded-md h-8 w-8`, className)}
           {...props}
         >
-          <Flame className="h-4 w-4 rotate-0 scale-100 transition-all light:scale-0 light:-rotate-90 black:scale-0 black:-rotate-90 hover:text-sidebar-accent" />
-          <Sun className="absolute h-4 w-4 rotate-90 scale-0 transition-all light:rotate-0 light:scale-100 black:scale-0 black:rotate-0 hover:text-sidebar-accent" />
-          <CircleDashed className="absolute h-4 w-4 rotate-90 scale-0 transition-all black:rotate-0 black:scale-100 light:scale-0 light:rotate-0 hover:text-sidebar-accent" />
+          <Flame className="h-4 w-4 rotate-0 scale-100 transition-all light:scale-0 light:-rotate-90 black:scale-0 black:-rotate-90 tron:scale-0 tron:-rotate-90 hover:text-sidebar-accent" />
+          <Sun className="absolute h-4 w-4 rotate-90 scale-0 transition-all light:rotate-0 light:scale-100 black:scale-0 black:rotate-0 tron:scale-0 tron:rotate-0 hover:text-sidebar-accent" />
+          <CircleDashed className="absolute h-4 w-4 rotate-90 scale-0 transition-all black:rotate-0 black:scale-100 light:scale-0 light:rotate-0 tron:scale-0 tron:rotate-0 hover:text-sidebar-accent" />
+          <Zap className="absolute h-4 w-4 rotate-90 scale-0 transition-all tron:rotate-0 tron:scale-100 light:scale-0 light:rotate-0 black:scale-0 black:rotate-0 hover:text-sidebar-accent" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
@@ -50,6 +51,11 @@ export function ThemeToggle({
         <DropdownMenuItem onSelect={() => setTheme("sunset")}>
           <Sun className="mr-2 h-4 w-4" />
           <span>Sunset</span>
+        </DropdownMenuItem>
+        {/* tron theme */}
+        <DropdownMenuItem onSelect={() => setTheme("tron")}>
+          <Zap className="mr-2 h-4 w-4" />
+          <span>Tron</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
