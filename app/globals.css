@@ -390,4 +390,16 @@
   .slate [data-slot="tooltip-content"] {
     color: white !important;
   }
+
+  /* Improve text visibility for structured content in slate theme */
+  .slate p,
+  .slate div,
+  .slate span {
+    color: rgba(226, 232, 240, 0.9) !important;
+  }
+
+  /* Ensure strong elements (bold text) are bright white in slate theme */
+  .slate strong {
+    color: white !important;
+  }
 }
