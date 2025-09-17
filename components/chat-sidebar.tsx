@@ -18,6 +18,7 @@ import {
   Sun,
   CircleDashed,
   Zap,
+  Square,
 } from "lucide-react";
 import {
   Sidebar,
@@ -178,24 +179,22 @@ export function ChatSidebar() {
               isCollapsed ? "justify-center w-full" : ""
             }`}
           >
-            <div
-              className={`relative rounded-full bg-primary/70 flex items-center justify-center ${
-                isCollapsed ? "size-5 p-3" : "size-6"
-              }`}
-            >
+            <div className="flex items-center gap-1">
               <Image
-                src="/scira.png"
-                alt="Scira Logo"
-                width={24}
-                height={24}
-                className="absolute transform scale-75"
+                src="/omni_logo_name.png"
+                alt="Omni Logo"
+                width={isCollapsed ? 18 : 50}
+                height={isCollapsed ? 18 : 18}
+                className="object-contain"
                 unoptimized
                 quality={100}
               />
+              {!isCollapsed && (
+                <span className="font-semibold text-lg" style={{ color: '#FF9A56' }}>MNI</span>
+              )}
             </div>
             {!isCollapsed && (
               <div className="font-semibold text-lg text-foreground/90">
-                MCP
               </div>
             )}
           </div>
@@ -492,15 +491,6 @@ export function ChatSidebar() {
                   <Key className="mr-2 h-4 w-4 hover:text-sidebar-accent" />
                   API Keys
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onSelect={(e) => {
-                    e.preventDefault();
-                    window.open("https://git.new/s-mcp", "_blank");
-                  }}
-                >
-                  <Github className="mr-2 h-4 w-4 hover:text-sidebar-accent" />
-                  GitHub
-                </DropdownMenuItem>
                 <DropdownMenuSub>
                   <DropdownMenuSubTrigger>
                     <Sparkles className="mr-2 h-4 w-4" />
@@ -526,6 +516,10 @@ export function ChatSidebar() {
                     <DropdownMenuItem onSelect={() => setTheme("tron")}>
                       <Zap className="mr-2 h-4 w-4" />
                       <span>Tron</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem onSelect={() => setTheme("slate")}>
+                      <Square className="mr-2 h-4 w-4" />
+                      <span>Slate</span>
                     </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuSub>
