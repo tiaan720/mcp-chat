@@ -160,7 +160,7 @@ const components: Partial<Components> = {
   ),
   h1: ({ node, children, ...props }) => (
     <h1
-      className="text-xl md:text-2xl font-semibold mt-3 mb-1.5 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 break-words"
+      className="text-xl md:text-2xl font-semibold mt-3 mb-1.5 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 slate:text-zinc-200 break-words"
       {...props}
     >
       {children}
@@ -168,7 +168,7 @@ const components: Partial<Components> = {
   ),
   h2: ({ node, children, ...props }) => (
     <h2
-      className="text-lg md:text-xl font-semibold mt-2.5 mb-1.5 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 break-words"
+      className="text-lg md:text-xl font-semibold mt-2.5 mb-1.5 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 slate:text-zinc-200 break-words"
       {...props}
     >
       {children}
@@ -176,7 +176,7 @@ const components: Partial<Components> = {
   ),
   h3: ({ node, children, ...props }) => (
     <h3
-      className="text-base md:text-lg font-semibold mt-2 mb-1 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 break-words"
+      className="text-base md:text-lg font-semibold mt-2 mb-1 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 slate:text-zinc-200 break-words"
       {...props}
     >
       {children}
@@ -184,7 +184,7 @@ const components: Partial<Components> = {
   ),
   h4: ({ node, children, ...props }) => (
     <h4
-      className="text-sm md:text-base font-semibold mt-2 mb-1 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 break-words"
+      className="text-sm md:text-base font-semibold mt-2 mb-1 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 slate:text-zinc-200 break-words"
       {...props}
     >
       {children}
@@ -192,7 +192,7 @@ const components: Partial<Components> = {
   ),
   h5: ({ node, children, ...props }) => (
     <h5
-      className="text-xs md:text-sm font-semibold mt-2 mb-1 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 break-words"
+      className="text-xs md:text-sm font-semibold mt-2 mb-1 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 slate:text-zinc-200 break-words"
       {...props}
     >
       {children}
@@ -200,7 +200,7 @@ const components: Partial<Components> = {
   ),
   h6: ({ node, children, ...props }) => (
     <h6
-      className="text-xs font-semibold mt-2 mb-0.5 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 break-words"
+      className="text-xs font-semibold mt-2 mb-0.5 text-zinc-800 dark:text-zinc-200 black:text-zinc-200 slate:text-zinc-200 break-words"
       {...props}
     >
       {children}
