@@ -402,4 +402,91 @@
   .slate strong {
     color: white !important;
   }
+
+  /* Fix model picker dropdown for slate theme */
+  .slate [data-slot="select-content"] {
+    background-color: var(--card) !important;
+    color: var(--card-foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Fix modal/dialog content for slate theme */
+  .slate [data-slot="dialog-content"],
+  .slate [data-slot="popover-content"] {
+    background-color: var(--card) !important;
+    color: var(--card-foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Fix tooltips for slate theme */
+  .slate [data-slot="tooltip-content"] {
+    background-color: var(--popover) !important;
+    color: var(--popover-foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Fix dialogs for slate theme */
+  .slate [data-slot="dialog-content"] {
+    background-color: var(--card) !important;
+    color: var(--card-foreground) !important;
+    border-color: var(--border) !important;
+  }
+  .slate .toaster .sonner-toast {
+    background-color: var(--card) !important;
+    color: var(--card-foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Fix select dropdown for slate theme */
+  .slate [data-slot="select-content"] {
+    background-color: var(--popover) !important;
+    color: var(--popover-foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  .slate [data-slot="select-item"] {
+    color: var(--popover-foreground) !important;
+  }
+
+  .slate [data-slot="select-item"]:hover,
+  .slate [data-slot="select-item"][data-highlighted] {
+    background-color: var(--accent) !important;
+    color: var(--accent-foreground) !important;
+  }
+
+  /* Fix dropdown menu for slate theme */
+  .slate [data-slot="dropdown-menu-content"],
+  .slate [data-slot="dropdown-menu-sub-content"] {
+    background-color: var(--popover) !important;
+    color: var(--popover-foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  .slate [data-slot="dropdown-menu-item"],
+  .slate [data-slot="dropdown-menu-checkbox-item"],
+  .slate [data-slot="dropdown-menu-radio-item"] {
+    color: var(--popover-foreground) !important;
+  }
+
+  .slate [data-slot="dropdown-menu-item"]:hover,
+  .slate [data-slot="dropdown-menu-item"][data-highlighted],
+  .slate [data-slot="dropdown-menu-checkbox-item"]:hover,
+  .slate [data-slot="dropdown-menu-checkbox-item"][data-highlighted],
+  .slate [data-slot="dropdown-menu-radio-item"]:hover,
+  .slate [data-slot="dropdown-menu-radio-item"][data-highlighted] {
+    background-color: var(--accent) !important;
+    color: var(--accent-foreground) !important;
+  }
+
+  /* Fix popover for slate theme */
+  .slate [data-slot="popover-content"] {
+    background-color: var(--popover) !important;
+    color: var(--popover-foreground) !important;
+    border-color: var(--border) !important;
+  }
+
+  /* Fix various text elements for slate theme */
+  .slate .text-muted-foreground {
+    color: var(--muted-foreground) !important;
+  }
 }

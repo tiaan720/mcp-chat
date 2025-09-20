@@ -141,7 +141,7 @@ const components: Partial<Components> = {
   ),
   blockquote: ({ node, children, ...props }) => (
     <blockquote
-      className="border-l-2 border-zinc-200 dark:border-zinc-700 black:border-zinc-700 pl-2 md:pl-3 my-1.5 italic text-zinc-600 dark:text-zinc-400 black:text-zinc-400 text-sm sm:text-base"
+      className="border-l-2 border-zinc-200 dark:border-zinc-700 black:border-zinc-700 slate:border-zinc-700 pl-2 md:pl-3 my-1.5 italic text-zinc-600 dark:text-zinc-400 black:text-zinc-400 slate:text-zinc-400 text-sm sm:text-base"
       {...props}
     >
       {children}
@@ -150,7 +150,7 @@ const components: Partial<Components> = {
   a: ({ node, children, ...props }) => (
     // @ts-expect-error error
     <Link
-      className="text-blue-500 hover:underline hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 black:text-blue-400 black:hover:text-blue-300 transition-colors break-words"
+      className="text-blue-500 hover:underline hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 black:text-blue-400 black:hover:text-blue-300 slate:text-blue-400 slate:hover:text-blue-300 transition-colors break-words"
       target="_blank"
       rel="noreferrer"
       {...props}
@@ -209,7 +209,7 @@ const components: Partial<Components> = {
   table: ({ node, children, ...props }) => (
     <div className="my-1.5 overflow-x-auto w-full max-w-full">
       <table
-        className="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700 black:divide-zinc-700 text-sm"
+        className="min-w-full divide-y divide-zinc-200 dark:divide-zinc-700 black:divide-zinc-700 slate:divide-zinc-700 text-sm"
         {...props}
       >
         {children}
@@ -218,7 +218,7 @@ const components: Partial<Components> = {
   ),
   thead: ({ node, children, ...props }) => (
     <thead
-      className="bg-zinc-50 dark:bg-zinc-800/50 black:bg-zinc-800/50"
+      className="bg-zinc-50 dark:bg-zinc-800/50 black:bg-zinc-800/50 slate:bg-zinc-800/50"
       {...props}
     >
       {children}
@@ -226,7 +226,7 @@ const components: Partial<Components> = {
   ),
   tbody: ({ node, children, ...props }) => (
     <tbody
-      className="divide-y divide-zinc-200 dark:divide-zinc-700 black:divide-zinc-700 bg-white dark:bg-transparent black:bg-transparent"
+      className="divide-y divide-zinc-200 dark:divide-zinc-700 black:divide-zinc-700 slate:divide-zinc-700 bg-white dark:bg-transparent black:bg-transparent slate:bg-transparent"
       {...props}
     >
       {children}
@@ -234,7 +234,7 @@ const components: Partial<Components> = {
   ),
   tr: ({ node, children, ...props }) => (
     <tr
-      className="transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800/30 black:hover:bg-zinc-800/30"
+      className="transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800/30 black:hover:bg-zinc-800/30 slate:hover:bg-zinc-800/30"
       {...props}
     >
       {children}
@@ -242,7 +242,7 @@ const components: Partial<Components> = {
   ),
   th: ({ node, children, ...props }) => (
     <th
-      className="px-3 py-1.5 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 black:text-zinc-400 uppercase tracking-wider"
+      className="px-3 py-1.5 text-left text-xs font-medium text-zinc-500 dark:text-zinc-400 black:text-zinc-400 slate:text-zinc-400 uppercase tracking-wider"
       {...props}
     >
       {children}
@@ -255,7 +255,7 @@ const components: Partial<Components> = {
   ),
   hr: ({ node, ...props }) => (
     <hr
-      className="my-1.5 border-zinc-200 dark:border-zinc-700 black:border-zinc-700"
+      className="my-1.5 border-zinc-200 dark:border-zinc-700 black:border-zinc-700 slate:border-zinc-700"
       {...props}
     />
   ),

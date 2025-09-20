@@ -101,25 +101,25 @@ export const ModelPicker = ({
   const getCapabilityColor = (capability: string) => {
     switch (capability.toLowerCase()) {
       case "code":
-        return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300";
+        return "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 slate:bg-blue-900/30 slate:text-blue-300";
       case "reasoning":
       case "research":
-        return "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300";
+        return "bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300 slate:bg-purple-900/30 slate:text-purple-300";
       case "vision":
-        return "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300";
+        return "bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300 slate:bg-indigo-900/30 slate:text-indigo-300";
       case "fast":
       case "rapid":
-        return "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300";
+        return "bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300 slate:bg-amber-900/30 slate:text-amber-300";
       case "efficient":
       case "compact":
-        return "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300";
+        return "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300 slate:bg-emerald-900/30 slate:text-emerald-300";
       case "creative":
       case "balance":
-        return "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300";
+        return "bg-rose-100 text-rose-800 dark:bg-rose-900/30 dark:text-rose-300 slate:bg-rose-900/30 slate:text-rose-300";
       case "agentic":
-        return "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300";
+        return "bg-cyan-100 text-cyan-800 dark:bg-cyan-900/30 dark:text-cyan-300 slate:bg-cyan-900/30 slate:text-cyan-300";
       default:
-        return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300";
+        return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300 slate:bg-gray-800 slate:text-gray-300";
     }
   };
 
