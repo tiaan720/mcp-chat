@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getChatById, deleteChat } from "@/lib/chat-store";
-import { auth } from "@clerk/nextjs/server";
+import { checkUserAccess } from "@/lib/auth-check";
 
 interface Params {
   params: {
@@ -10,11 +10,15 @@ interface Params {
 
 export async function GET(request: Request, { params }: Params) {
   try {
-    // Get the authenticated user from Clerk
-    const { userId } = await auth();
+    // Get the authenticated user from Clerk and check access
+    const { userId, hasAccess } = await checkUserAccess();
 
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized - please sign in" }, { status: 401 });
+    }
+
+    if (!hasAccess) {
+      return NextResponse.json({ error: "Access denied - your account needs to be approved" }, { status: 403 });
     }
 
     const { id } = await params;
@@ -39,11 +43,15 @@ export async function GET(request: Request, { params }: Params) {
 
 export async function DELETE(request: Request, { params }: Params) {
   try {
-    // Get the authenticated user from Clerk
-    const { userId } = await auth();
+    // Get the authenticated user from Clerk and check access
+    const { userId, hasAccess } = await checkUserAccess();
 
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized - please sign in" }, { status: 401 });
+    }
+
+    if (!hasAccess) {
+      return NextResponse.json({ error: "Access denied - your account needs to be approved" }, { status: 403 });
     }
 
     const { id } = await params;

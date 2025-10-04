@@ -8,7 +8,7 @@ import { chats } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { initializeMCPClients, type MCPServerConfig } from '@/lib/mcp-client';
 import { generateTitle } from '@/app/actions';
-import { auth } from "@clerk/nextjs/server";
+import { checkUserAccess } from "@/lib/auth-check";
 import { checkBotId } from "botid/server";
 
 export async function POST(req: Request) {
@@ -35,13 +35,20 @@ export async function POST(req: Request) {
     );
   }
 
-  // Get the authenticated user from Clerk
-  const { userId } = await auth();
+  // Get the authenticated user from Clerk and check access
+  const { userId, hasAccess } = await checkUserAccess();
 
   if (!userId) {
     return new Response(
       JSON.stringify({ error: "Unauthorized - please sign in" }),
       { status: 401, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
+  if (!hasAccess) {
+    return new Response(
+      JSON.stringify({ error: "Access denied - your account needs to be approved" }),
+      { status: 403, headers: { "Content-Type": "application/json" } }
     );
   }
 
