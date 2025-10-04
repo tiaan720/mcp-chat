@@ -57,7 +57,7 @@ export default function AccessDeniedPage() {
             Access Not Approved
           </h1>
           <p className="text-muted-foreground">
-            Your account has been created, but you don't have permission to access this application yet.
+            Your account has been created, but you don&apos;t have permission to access this application yet.
           </p>
         </div>
 
@@ -73,7 +73,7 @@ export default function AccessDeniedPage() {
         <div className="bg-muted/50 rounded-md p-4 text-sm text-muted-foreground">
           <p>
             {hasRequested
-              ? "Your access request has been sent. You'll receive access once an administrator approves your account."
+              ? "Your access request has been sent. You&apos;ll receive access once an administrator approves your account."
               : "Click the button below to request access from an administrator."}
           </p>
         </div>
