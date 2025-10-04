@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import { getChats } from "@/lib/chat-store";
-import { checkBotId } from "botid/server";
+import { auth } from "@clerk/nextjs/server";
 
 export async function GET(request: Request) {
   try {
-    const userId = request.headers.get('x-user-id');
+    // Get the authenticated user from Clerk
+    const { userId } = await auth();
 
     if (!userId) {
-      return NextResponse.json({ error: "User ID is required" }, { status: 400 });
+      return NextResponse.json({ error: "Unauthorized - please sign in" }, { status: 401 });
     }
 
     const chats = await getChats(userId);

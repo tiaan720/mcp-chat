@@ -9,10 +9,6 @@ import {
   ServerIcon,
   Settings,
   Sparkles,
-  ChevronsUpDown,
-  Copy,
-  Pencil,
-  Github,
   Key,
   Flame,
   Sun,
@@ -43,7 +39,7 @@ import { MCPServerManager } from "./mcp-server-manager";
 import { ApiKeyManager } from "./api-key-manager";
 import { ThemeToggle } from "./theme-toggle";
 import { useTheme } from "next-themes";
-import { getUserId, updateUserId } from "@/lib/user-id";
+import { setUserId } from "@/lib/user-id";
 import { useChats } from "@/lib/hooks/use-chats";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -59,31 +55,19 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useMCP } from "@/lib/context/mcp-context";
 import { Skeleton } from "@/components/ui/skeleton";
 import { AnimatePresence, motion } from "motion/react";
+import { useUser, UserButton } from "@clerk/nextjs";
 
 export function ChatSidebar() {
   const router = useRouter();
   const pathname = usePathname();
-  const [userId, setUserId] = useState<string>("");
+  const { user, isLoaded } = useUser();
   const [mcpSettingsOpen, setMcpSettingsOpen] = useState(false);
   const [apiKeySettingsOpen, setApiKeySettingsOpen] = useState(false);
   const { state } = useSidebar();
   const isCollapsed = state === "collapsed";
-  const [editUserIdOpen, setEditUserIdOpen] = useState(false);
-  const [newUserId, setNewUserId] = useState("");
   const { setTheme } = useTheme();
 
   // Get MCP server data from context
@@ -94,10 +78,14 @@ export function ChatSidebar() {
     setSelectedMcpServers,
   } = useMCP();
 
-  // Initialize userId
+  // Get userId from Clerk and store it in localStorage
+  const userId = user?.id || '';
+  
   useEffect(() => {
-    setUserId(getUserId());
-  }, []);
+    if (isLoaded && user) {
+      setUserId(user.id);
+    }
+  }, [isLoaded, user]);
 
   // Use TanStack Query to fetch chats
   const { chats, isLoading, deleteChat, refreshChats } = useChats(userId);
@@ -123,24 +111,8 @@ export function ChatSidebar() {
   // Get active MCP servers status
   const activeServersCount = selectedMcpServers.length;
 
-  // Handle user ID update
-  const handleUpdateUserId = () => {
-    if (!newUserId.trim()) {
-      toast.error("User ID cannot be empty");
-      return;
-    }
-
-    updateUserId(newUserId.trim());
-    setUserId(newUserId.trim());
-    setEditUserIdOpen(false);
-    toast.success("User ID updated successfully");
-
-    // Refresh the page to reload chats with new user ID
-    window.location.reload();
-  };
-
-  // Show loading state if user ID is not yet initialized
-  if (!userId) {
+  // Show loading state if user is not yet loaded
+  if (!isLoaded || !user) {
     return null; // Or a loading spinner
   }
 
@@ -391,40 +363,33 @@ export function ChatSidebar() {
 
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
-              {isCollapsed ? (
-                <Button
-                  variant="ghost"
-                  className="w-8 h-8 p-0 flex items-center justify-center"
-                >
-                  <Avatar className="h-6 w-6 rounded-lg bg-secondary/60">
-                    <AvatarFallback className="rounded-lg text-xs font-medium text-secondary-foreground">
-                      {userId.substring(0, 2).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
-                </Button>
-              ) : (
-                <Button
-                  variant="outline"
-                  className="w-full justify-between font-normal bg-transparent border border-border/60 shadow-none px-2 h-10 hover:bg-secondary/50"
-                >
-                  <div className="flex items-center gap-2">
-                    <Avatar className="h-7 w-7 rounded-lg bg-secondary/60">
-                      <AvatarFallback className="rounded-lg text-sm font-medium text-secondary-foreground">
-                        {userId.substring(0, 2).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
+              <Button
+                variant="outline"
+                className={cn(
+                  "w-full justify-between font-normal bg-transparent border border-border/60 shadow-none h-10 hover:bg-secondary/50",
+                  isCollapsed ? "w-8 h-8 p-0" : "px-2"
+                )}
+              >
+                <div className="flex items-center gap-2">
+                  <UserButton 
+                    appearance={{
+                      elements: {
+                        avatarBox: isCollapsed ? "h-6 w-6" : "h-7 w-7"
+                      }
+                    }}
+                  />
+                  {!isCollapsed && (
                     <div className="grid text-left text-sm leading-tight">
                       <span className="truncate font-medium text-foreground/90">
-                        User ID
+                        {user.primaryEmailAddress?.emailAddress || user.username || 'User'}
                       </span>
                       <span className="truncate text-xs text-muted-foreground">
-                        {userId.substring(0, 16)}...
+                        Manage account
                       </span>
                     </div>
-                  </div>
-                  <ChevronsUpDown className="h-4 w-4 text-muted-foreground" />
-                </Button>
-              )}
+                  )}
+                </div>
+              </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
               className="w-56 rounded-lg"
@@ -434,43 +399,23 @@ export function ChatSidebar() {
             >
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                  <Avatar className="h-8 w-8 rounded-lg bg-secondary/60">
-                    <AvatarFallback className="rounded-lg text-sm font-medium text-secondary-foreground">
-                      {userId.substring(0, 2).toUpperCase()}
-                    </AvatarFallback>
-                  </Avatar>
+                  <UserButton 
+                    appearance={{
+                      elements: {
+                        avatarBox: "h-8 w-8"
+                      }
+                    }}
+                  />
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold text-foreground/90">
-                      User ID
+                      {user.firstName} {user.lastName}
                     </span>
                     <span className="truncate text-xs text-muted-foreground">
-                      {userId}
+                      {user.primaryEmailAddress?.emailAddress}
                     </span>
                   </div>
                 </div>
               </DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuGroup>
-                <DropdownMenuItem
-                  onSelect={(e) => {
-                    e.preventDefault();
-                    navigator.clipboard.writeText(userId);
-                    toast.success("User ID copied to clipboard");
-                  }}
-                >
-                  <Copy className="mr-2 h-4 w-4 hover:text-sidebar-accent" />
-                  Copy User ID
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onSelect={(e) => {
-                    e.preventDefault();
-                    setEditUserIdOpen(true);
-                  }}
-                >
-                  <Pencil className="mr-2 h-4 w-4 hover:text-sidebar-accent" />
-                  Edit User ID
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem
@@ -542,43 +487,6 @@ export function ChatSidebar() {
           onOpenChange={setApiKeySettingsOpen}
         />
       </SidebarFooter>
-
-      <Dialog
-        open={editUserIdOpen}
-        onOpenChange={(open) => {
-          setEditUserIdOpen(open);
-          if (open) {
-            setNewUserId(userId);
-          }
-        }}
-      >
-        <DialogContent className="sm:max-w-[400px]">
-          <DialogHeader>
-            <DialogTitle>Edit User ID</DialogTitle>
-            <DialogDescription>
-              Update your user ID for chat synchronization. This will affect
-              which chats are visible to you.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid gap-2">
-              <Label htmlFor="userId">User ID</Label>
-              <Input
-                id="userId"
-                value={newUserId}
-                onChange={(e) => setNewUserId(e.target.value)}
-                placeholder="Enter your user ID"
-              />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setEditUserIdOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleUpdateUserId}>Save Changes</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </Sidebar>
   );
 }

@@ -8,7 +8,7 @@ import { chats } from '@/lib/db/schema';
 import { eq, and } from 'drizzle-orm';
 import { initializeMCPClients, type MCPServerConfig } from '@/lib/mcp-client';
 import { generateTitle } from '@/app/actions';
-
+import { auth } from "@clerk/nextjs/server";
 import { checkBotId } from "botid/server";
 
 export async function POST(req: Request) {
@@ -16,7 +16,7 @@ export async function POST(req: Request) {
     messages,
     chatId,
     selectedModel,
-    userId,
+    userId: clientUserId,
     mcpServers = [],
   }: {
     messages: UIMessage[];
@@ -35,10 +35,13 @@ export async function POST(req: Request) {
     );
   }
 
+  // Get the authenticated user from Clerk
+  const { userId } = await auth();
+
   if (!userId) {
     return new Response(
-      JSON.stringify({ error: "User ID is required" }),
-      { status: 400, headers: { "Content-Type": "application/json" } }
+      JSON.stringify({ error: "Unauthorized - please sign in" }),
+      { status: 401, headers: { "Content-Type": "application/json" } }
     );
   }
 

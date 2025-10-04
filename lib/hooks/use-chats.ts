@@ -16,11 +16,7 @@ export function useChats(userId: string) {
     queryFn: async () => {
       if (!userId) return [];
 
-      const response = await fetch('/api/chats', {
-        headers: {
-          'x-user-id': userId
-        }
-      });
+      const response = await fetch('/api/chats');
 
       if (!response.ok) {
         throw new Error('Failed to fetch chats');
@@ -37,10 +33,7 @@ export function useChats(userId: string) {
   const deleteChat = useMutation({
     mutationFn: async (chatId: string) => {
       const response = await fetch(`/api/chats/${chatId}`, {
-        method: 'DELETE',
-        headers: {
-          'x-user-id': userId
-        }
+        method: 'DELETE'
       });
 
       if (!response.ok) {

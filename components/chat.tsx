@@ -8,13 +8,14 @@ import { ProjectOverview } from "./project-overview";
 import { Messages } from "./messages";
 import { toast } from "sonner";
 import { useRouter, useParams } from "next/navigation";
-import { getUserId } from "@/lib/user-id";
+import { setUserId } from "@/lib/user-id";
 import { useLocalStorage } from "@/lib/hooks/use-local-storage";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { convertToUIMessages } from "@/lib/chat-store";
 import { type Message as DBMessage } from "@/lib/db/schema";
 import { nanoid } from "nanoid";
 import { useMCP } from "@/lib/context/mcp-context";
+import { useUser } from "@clerk/nextjs";
 
 // Type for chat data from DB
 interface ChatData {
@@ -29,18 +30,24 @@ export default function Chat() {
   const params = useParams();
   const chatId = params?.id as string | undefined;
   const queryClient = useQueryClient();
+  const { user, isLoaded } = useUser();
   
   const [selectedModel, setSelectedModel] = useLocalStorage<modelID>("selectedModel", defaultModel);
-  const [userId, setUserId] = useState<string>('');
+  const [userId, setUserIdState] = useState<string>('');
   const [generatedChatId, setGeneratedChatId] = useState<string>('');
   
   // Get MCP server data from context
   const { mcpServersForApi } = useMCP();
   
-  // Initialize userId
+  // Initialize userId from Clerk
   useEffect(() => {
-    setUserId(getUserId());
-  }, []);
+    if (isLoaded && user) {
+      const clerkUserId = user.id;
+      setUserIdState(clerkUserId);
+      // Store in localStorage for backward compatibility
+      setUserId(clerkUserId);
+    }
+  }, [isLoaded, user]);
   
   // Generate a chat ID if needed
   useEffect(() => {
@@ -56,11 +63,7 @@ export default function Chat() {
       const [_, chatId, userId] = queryKey;
       if (!chatId || !userId) return null;
       
-      const response = await fetch(`/api/chats/${chatId}`, {
-        headers: {
-          'x-user-id': userId
-        }
-      });
+      const response = await fetch(`/api/chats/${chatId}`);
       
       if (!response.ok) {
         // For 404, return empty chat data instead of throwing
