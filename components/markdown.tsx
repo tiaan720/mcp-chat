@@ -138,7 +138,7 @@ const components: Partial<Components> = {
     </p>
   ),
   strong: ({ node, children, ...props }) => (
-    <strong className="font-semibold slate:text-orange-400" {...props}>
+    <strong className="font-semibold" {...props}>
       {children}
     </strong>
   ),
