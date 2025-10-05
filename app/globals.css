@@ -407,9 +407,9 @@
     color: rgba(226, 232, 240, 0.9) !important;
   }
 
-  /* Ensure strong elements (bold text) are bright orange in slate theme */
+  /* Ensure strong elements (bold text) use current text color in slate theme */
   .slate strong {
-    color: oklch(0.78 0.20 40.00) !important;
+    font-weight: 700;
   }
 
   /* Ensure username highlight is bright orange in slate theme */
