@@ -69,8 +69,8 @@ export function ReasoningMessagePart({
             <div
               className={cn(
                 "flex items-center justify-center w-6 h-6 rounded-full",
-                "bg-amber-50 dark:bg-amber-900/20 slate:bg-amber-900/30",
-                "text-amber-600 dark:text-amber-400 slate:text-amber-300 ring-1 ring-amber-200 dark:ring-amber-700/30 slate:ring-amber-600/40"
+                "bg-amber-50 dark:bg-amber-900/20 slate:bg-orange-500/30",
+                "text-amber-600 dark:text-amber-400 slate:text-orange-400 ring-1 ring-amber-200 dark:ring-amber-700/30 slate:ring-orange-500/60"
               )}
             >
               <LightbulbIcon className="h-3.5 w-3.5" />
@@ -105,7 +105,7 @@ export function ReasoningMessagePart({
           className={cn(
             "text-sm text-muted-foreground flex flex-col gap-2",
             "pl-3.5 ml-0.5 mt-1",
-            "border-l border-amber-200/50 dark:border-amber-700/30 slate:border-amber-600/40"
+            "border-l border-amber-200/50 dark:border-amber-700/30 slate:border-orange-500/60"
           )}
         >
           <div className="text-xs text-muted-foreground/70 pl-1 font-medium">

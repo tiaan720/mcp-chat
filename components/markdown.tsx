@@ -34,6 +34,14 @@ const CodeBlock = ({
   const codeStyle =
     theme === "light" || theme === "sunset" ? oneLight : tomorrow;
 
+  // Get background color based on theme
+  const getBackgroundColor = () => {
+    if (theme === "slate") {
+      return "oklch(0.18 0.03 225)";
+    }
+    return "var(--secondary)";
+  };
+
   return (
     <div className="relative group rounded-lg overflow-hidden border border-border mb-3 md:mb-4 w-full max-w-full">
       <div className="flex items-center justify-between px-3 md:px-4 py-1.5 bg-muted/50 text-muted-foreground text-xs font-mono">
@@ -54,7 +62,7 @@ const CodeBlock = ({
             margin: 0,
             padding: "0.75rem 1rem",
             fontSize: "0.85em",
-            backgroundColor: "var(--secondary)",
+            backgroundColor: getBackgroundColor(),
             borderRadius: 0,
             width: "100%",
             minWidth: "100%",
@@ -87,7 +95,7 @@ const components: Partial<Components> = {
     if (isInline) {
       return (
         <code
-          className="px-1.5 py-0.5 rounded-md bg-secondary/50 text-foreground font-mono text-[0.85em] break-words"
+          className="px-1.5 py-0.5 rounded-md bg-secondary/50 text-foreground font-mono text-[0.85em] break-words slate:bg-[oklch(0.20_0.03_225)] slate:text-orange-300"
           {...props}
         >
           {children}
@@ -130,7 +138,7 @@ const components: Partial<Components> = {
     </p>
   ),
   strong: ({ node, children, ...props }) => (
-    <strong className="font-semibold" {...props}>
+    <strong className="font-semibold slate:text-orange-400" {...props}>
       {children}
     </strong>
   ),
@@ -150,7 +158,7 @@ const components: Partial<Components> = {
   a: ({ node, children, ...props }) => (
     // @ts-expect-error error
     <Link
-      className="text-blue-500 hover:underline hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 black:text-blue-400 black:hover:text-blue-300 slate:text-blue-400 slate:hover:text-blue-300 transition-colors break-words"
+      className="text-blue-500 hover:underline hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 black:text-blue-400 black:hover:text-blue-300 slate:text-orange-400 slate:hover:text-orange-300 transition-colors break-words"
       target="_blank"
       rel="noreferrer"
       {...props}

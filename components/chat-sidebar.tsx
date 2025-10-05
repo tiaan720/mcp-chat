@@ -229,7 +229,7 @@ export function ChatSidebar() {
                           className={cn(
                             "transition-all hover:bg-primary/10 active:bg-primary/15",
                             pathname === `/chat/${chat.id}`
-                              ? "bg-secondary/60 hover:bg-secondary/60"
+                              ? "bg-orange-500/15 hover:bg-orange-500/20 slate:bg-orange-500/20 slate:hover:bg-orange-500/25 border-l-2 border-orange-500"
                               : ""
                           )}
                         >
@@ -242,7 +242,7 @@ export function ChatSidebar() {
                                 className={cn(
                                   "h-4 w-4 flex-shrink-0",
                                   pathname === `/chat/${chat.id}`
-                                    ? "text-foreground"
+                                    ? "text-orange-500 slate:text-orange-400"
                                     : "text-muted-foreground"
                                 )}
                               />
@@ -251,7 +251,7 @@ export function ChatSidebar() {
                                   className={cn(
                                     "ml-2 truncate text-sm",
                                     pathname === `/chat/${chat.id}`
-                                      ? "text-foreground font-medium"
+                                      ? "text-orange-500 slate:text-orange-400 font-medium"
                                       : "text-foreground/80"
                                   )}
                                   title={chat.title}
@@ -266,7 +266,12 @@ export function ChatSidebar() {
                               <Button
                                 variant="ghost"
                                 size="icon"
-                                className="h-6 w-6 text-muted-foreground hover:text-foreground flex-shrink-0"
+                                className={cn(
+                                  "h-6 w-6 flex-shrink-0 transition-colors",
+                                  pathname === `/chat/${chat.id}`
+                                    ? "text-orange-500/60 hover:text-orange-500 hover:bg-orange-500/20 slate:text-orange-400/60 slate:hover:text-orange-400 slate:hover:bg-orange-500/30"
+                                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                                )}
                                 onClick={(e) => handleDeleteChat(chat.id, e)}
                                 title="Delete chat"
                               >
