@@ -121,4 +121,4 @@ export type modelID = keyof typeof languageModels;
 
 export const MODELS = Object.keys(languageModels);
 
-export const defaultModel: modelID = "qwen3-32b";
+export const defaultModel: modelID = "gpt-oss-120b";
