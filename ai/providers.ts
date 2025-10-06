@@ -49,40 +49,58 @@ const languageModels = {
       middleware
     }
   ),
-  "grok-3-mini": xaiClient("grok-3-mini-latest"),
-  "kimi-k2": groqClient('moonshotai/kimi-k2-instruct'),
-  "llama4": groqClient('meta-llama/llama-4-scout-17b-16e-instruct')
+  "gpt-oss-120b": groqClient('openai/gpt-oss-120b'),
+  "compound": groqClient('groq/compound'),
+  // Hidden models - available but not shown in UI
+  // "grok-3-mini": xaiClient("grok-3-mini-latest"),
+  // "kimi-k2": groqClient('moonshotai/kimi-k2-instruct'),
+  // "llama4": groqClient('meta-llama/llama-4-scout-17b-16e-instruct')
 };
 
 export const modelDetails: Record<keyof typeof languageModels, ModelInfo> = {
-  "kimi-k2": {
-    provider: "Groq",
-    name: "Kimi K2",
-    description: "Latest version of Moonshot AI's Kimi K2 with good balance of capabilities.",
-    apiVersion: "kimi-k2-instruct",
-    capabilities: ["Balanced", "Efficient", "Agentic"]
-  },
   "qwen3-32b": {
     provider: "Groq",
     name: "Qwen 3 32B",
-    description: "Latest version of Alibaba's Qwen 32B with strong reasoning and coding capabilities.",
+    description: "Alibaba's Qwen 32B with strong reasoning and coding capabilities.",
     apiVersion: "qwen3-32b",
     capabilities: ["Reasoning", "Efficient", "Agentic"]
   },
-  "grok-3-mini": {
-    provider: "XAI",
-    name: "Grok 3 Mini",
-    description: "Latest version of XAI's Grok 3 Mini with strong reasoning and coding capabilities.",
-    apiVersion: "grok-3-mini-latest",
-    capabilities: ["Reasoning", "Efficient", "Agentic"]
-  },
-  "llama4": {
+  "gpt-oss-120b": {
     provider: "Groq",
-    name: "Llama 4",
-    description: "Latest version of Meta's Llama 4 with good balance of capabilities.",
-    apiVersion: "llama-4-scout-17b-16e-instruct",
-    capabilities: ["Balanced", "Efficient", "Agentic"]
+    name: "GPT-OSS 120B",
+    description: "OpenAI's flagship open-weight MoE model with 120B parameters. Matches proprietary models like o4-mini with long-context reasoning, competitive math/coding performance, and robust health knowledge. Ideal for advanced research and agentic applications.",
+    apiVersion: "gpt-oss-120b",
+    capabilities: ["Reasoning", "Code", "Agentic", "Research"]
+  },
+  "compound": {
+    provider: "Groq",
+    name: "Compound",
+    description: "Integrates GPT-OSS 120B and Llama 4 with external tools like web search and code execution. Provides real-time data access and environmental interaction for more accurate and current responses.",
+    apiVersion: "compound",
+    capabilities: ["Agentic", "Web Search", "Code", "Reasoning"]
   }
+  // Hidden models - definitions kept for compatibility
+  // "kimi-k2": {
+  //   provider: "Groq",
+  //   name: "Kimi K2",
+  //   description: "Latest version of Moonshot AI's Kimi K2 with good balance of capabilities.",
+  //   apiVersion: "kimi-k2-instruct",
+  //   capabilities: ["Balanced", "Efficient", "Agentic"]
+  // },
+  // "grok-3-mini": {
+  //   provider: "XAI",
+  //   name: "Grok 3 Mini",
+  //   description: "Latest version of XAI's Grok 3 Mini with strong reasoning and coding capabilities.",
+  //   apiVersion: "grok-3-mini-latest",
+  //   capabilities: ["Reasoning", "Efficient", "Agentic"]
+  // },
+  // "llama4": {
+  //   provider: "Groq",
+  //   name: "Llama 4",
+  //   description: "Latest version of Meta's Llama 4 with good balance of capabilities.",
+  //   apiVersion: "llama-4-scout-17b-16e-instruct",
+  //   capabilities: ["Balanced", "Efficient", "Agentic"]
+  // }
 };
 
 // Update API keys when localStorage changes (for runtime updates)
@@ -103,4 +121,4 @@ export type modelID = keyof typeof languageModels;
 
 export const MODELS = Object.keys(languageModels);
 
-export const defaultModel: modelID = "kimi-k2";
+export const defaultModel: modelID = "qwen3-32b";
