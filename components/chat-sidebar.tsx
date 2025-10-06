@@ -38,6 +38,7 @@ import Image from "next/image";
 import { MCPServerManager } from "./mcp-server-manager";
 import { ApiKeyManager } from "./api-key-manager";
 import { ThemeToggle } from "./theme-toggle";
+import { AnimatedLogoWithText } from "./animated-logo";
 import { useTheme } from "next-themes";
 import { setUserId } from "@/lib/user-id";
 import { useChats } from "@/lib/hooks/use-chats";
@@ -151,20 +152,7 @@ export function ChatSidebar() {
               isCollapsed ? "justify-center w-full" : ""
             }`}
           >
-            <div className="flex items-center gap-1">
-              <Image
-                src="/omni_logo_name.png"
-                alt="Omni Logo"
-                width={isCollapsed ? 18 : 50}
-                height={isCollapsed ? 18 : 18}
-                className="object-contain"
-                unoptimized
-                quality={100}
-              />
-              {!isCollapsed && (
-                <span className="font-semibold text-lg" style={{ color: '#FF9A56' }}>MNI</span>
-              )}
-            </div>
+            <AnimatedLogoWithText collapsed={isCollapsed} />
             {!isCollapsed && (
               <div className="font-semibold text-lg text-foreground/90">
               </div>
