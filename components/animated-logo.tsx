@@ -354,11 +354,11 @@ export function AnimatedLogoWithText({
   logoWidth,
   logoHeight,
 }: AnimatedLogoWithTextProps) {
-  const width = collapsed ? 18 : (logoWidth || 50);
-  const height = collapsed ? 18 : (logoHeight || 50);
+  const width = collapsed ? 22 : (logoWidth || 60);
+  const height = collapsed ? 22 : (logoHeight || 60);
 
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-0.5">
       <AnimatedLogo
         width={width}
         height={height}
